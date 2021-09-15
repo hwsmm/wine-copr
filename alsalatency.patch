@@ -1,0 +1,19 @@
+--- a/dlls/winealsa.drv/mmdevdrv.c
++++ b/dlls/winealsa.drv/mmdevdrv.c
+@@ -1345,6 +1345,16 @@
+         }
+     }
+ 
++    int penv = atoi(getenv("STAGING_AUDIO_PERIOD"));
++    if (penv >= 1) {
++        period = penv;
++    }
++    int denv = atoi(getenv("STAGING_AUDIO_DURATION"));
++    if (denv >= 1) {
++        duration = denv;
++    }
++    printf("duration: %lld; period: %lld\n", duration, period);
++
+     EnterCriticalSection(&This->lock);
+ 
+     if(This->initted){
