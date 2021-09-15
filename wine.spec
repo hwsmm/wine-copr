@@ -229,7 +229,7 @@ tar xf %{SOURCE100}
 pushd wine-staging-%staging_version
 popd
 bash ./wine-staging-%staging_version/patches/patchinstall.sh \
-     user32-rawinput-keyboard user32-rawinput-mouse user32-rawinput-mouse-experimental server-Realtime_Priority ntdll-Junction_Points server-PeekMessage server-Signal_Thread server-Realtime_Priority eventfd_synchronization
+     user32-rawinput-mouse user32-rawinput-mouse-experimental server-Realtime_Priority ntdll-Junction_Points server-PeekMessage server-Signal_Thread server-Realtime_Priority eventfd_synchronization
 %endif
 
 %if %{nine}
