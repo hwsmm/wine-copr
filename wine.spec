@@ -17,7 +17,7 @@
 
 
 %define projectname wine
-%global flavor @BUILD_FLAVOR@%nil
+%global flavor %nil
 %define staging 1
 %define nine 0
 
