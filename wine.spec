@@ -140,16 +140,16 @@ Source8:        wine-rpmlintrc
 # SUSE specific patches
 # - currently none, but add them here
 #Patch0:         susefixes.patch
-Recommends:     wine-gecko >= 2.47.2
+#Recommends:     wine-gecko >= 2.47.2
 Conflicts:      wine-gecko < 2.47.2
-Recommends:     wine-mono >= 6.1.1
+#Recommends:     wine-mono >= 6.1.1
 Conflicts:      wine-mono < 6.1.1
 # not packaged in distro...
-Recommends:     wine-mono
-Recommends:     alsa-plugins
-Recommends:     alsa-plugins-pulse
-Recommends:     dosbox
-Recommends:     winetricks
+#Recommends:     wine-mono
+#Recommends:     alsa-plugins
+#Recommends:     alsa-plugins-pulse
+#Recommends:     dosbox
+#Recommends:     winetricks
 Requires:       samba-winbind
 %ifarch x86_64
 Requires:       %{name}-32bit = %{version}
