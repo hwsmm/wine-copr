@@ -29,8 +29,8 @@
 %endif
 
 # needs to be on top due to usage of %version macro below
-%define realver 6.17
-Version:        6.17
+%define realver 6.18
+Version:        6.18
 Release:        0
 
 %if "%{flavor}" != ""
@@ -158,8 +158,8 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 ExclusiveArch:  %{ix86} x86_64 ppc armv7l armv7hl aarch64
 %if %{staging}
 # upstream patch target version
-%define staging_version 6.17
-Source100:      wine-staging-%{staging_version}.tar.xz
+%define staging_version 6.18
+Source100:      wine-staging-%{staging_version}.tar.gz
 BuildRequires:  gtk3-devel
 BuildRequires:  libOSMesa-devel
 BuildRequires:  libva-devel
@@ -225,9 +225,7 @@ cp %{S:3} .
 #
 %if %{staging}
 # apply wine staging patch set on top of the wine release.
-tar xf %{SOURCE100}
-pushd wine-staging-%staging_version
-popd
+tar xzf %{SOURCE100}
 bash ./wine-staging-%staging_version/patches/patchinstall.sh \
      user32-rawinput-mouse user32-rawinput-mouse-experimental server-Realtime_Priority ntdll-Junction_Points server-PeekMessage server-Signal_Thread server-Realtime_Priority eventfd_synchronization
 %endif
