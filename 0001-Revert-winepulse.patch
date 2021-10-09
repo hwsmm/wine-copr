@@ -1,7 +1,7 @@
 From cb5c84463db5cb5af59afb116b2e1ac8fe80f947 Mon Sep 17 00:00:00 2001
 From: coinworld <hwsnemo@gmail.com>
 Date: Sat, 9 Oct 2021 16:43:01 +0900
-Subject: [PATCH] Revert winepulse
+Subject: [PATCH 1/2] Revert winepulse
 
 ---
  dlls/winepulse.drv/Makefile.in |    9 +-

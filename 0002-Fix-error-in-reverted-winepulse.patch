@@ -1,0 +1,28 @@
+From 63712ab2abc23303a3d300fb7fb37476f4de8ca6 Mon Sep 17 00:00:00 2001
+From: coinworld <hwsnemo@gmail.com>
+Date: Sat, 9 Oct 2021 17:52:53 +0900
+Subject: [PATCH 2/2] Fix error in reverted winepulse
+
+---
+ dlls/winepulse.drv/mmdevdrv.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/dlls/winepulse.drv/mmdevdrv.c b/dlls/winepulse.drv/mmdevdrv.c
+index 23c34a50f66..786f3fa0f9f 100644
+--- a/dlls/winepulse.drv/mmdevdrv.c
++++ b/dlls/winepulse.drv/mmdevdrv.c
+@@ -3656,9 +3656,9 @@ HRESULT WINAPI AUDDRV_GetPropValue(GUID *guid, const PROPERTYKEY *prop, PROPVARI
+ 
+     if (IsEqualGUID(guid, &pulse_render_guid) && IsEqualPropertyKey(*prop, PKEY_AudioEndpoint_PhysicalSpeakers)) {
+         out->vt = VT_UI4;
+-        out->u.ulVal = g_phys_speakers_mask;
++        out->ulVal = g_phys_speakers_mask;
+ 
+-        return out->u.ulVal ? S_OK : E_FAIL;
++        return out->ulVal ? S_OK : E_FAIL;
+     }
+ 
+     return E_NOTIMPL;
+-- 
+2.33.0
+
