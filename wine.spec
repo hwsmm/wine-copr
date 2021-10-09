@@ -178,8 +178,10 @@ BuildRequires:  pkgconfig(dri2proto)
 Source110:      wine-d3d9-patches-%{nine_version}.tar.xz
 %endif
 
-Patch998:       alsalatency.patch
-Patch999:       pulselatency.patch
+#Patch998:       alsalatency.patch
+#Patch999:       pulselatency.patch
+Patch1000:      0001-Revert-winepulse.patch
+Patch1001:      0002-5.14-Latency-Fix.patch
 
 %description
 Wine is a compatibility layer capable of running Windows
