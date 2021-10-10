@@ -18,7 +18,7 @@
 
 %define projectname wine
 %global flavor %nil
-%define staging 1
+%define staging 0
 %define nine 0
 
 %if "%flavor" == "staging" || "%flavor" == "staging-nine"
@@ -178,11 +178,9 @@ BuildRequires:  pkgconfig(dri2proto)
 Source110:      wine-d3d9-patches-%{nine_version}.tar.xz
 %endif
 
-#Patch998:       alsalatency.patch
-#Patch999:       pulselatency.patch
-Patch1000:      0001-Revert-winepulse.patch
-Patch1001:      0002-Fix-error-in-reverted-winepulse.patch
-Patch1002:      0002-5.14-Latency-Fix.patch
+Patch998:       alsalatency.patch
+Patch999:       pulselatency.patch
+Patch1000:      0001-TkG-and-staging-patches-included.patch
 
 %description
 Wine is a compatibility layer capable of running Windows
