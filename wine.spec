@@ -31,7 +31,7 @@
 # needs to be on top due to usage of %version macro below
 %define realver 6.19
 Version:        6.19
-Release:        0
+Release:        1
 
 %if "%{flavor}" != ""
 Name:           wine%{?flavor:-}%{?flavor}
