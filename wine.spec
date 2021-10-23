@@ -98,10 +98,10 @@ BuildRequires:  update-desktop-files
 BuildRequires:  valgrind-devel
 %if 0%{?suse_version} >= 1550
 %ifarch x86_64
-BuildRequires:  mingw64-cross-gcc
+#BuildRequires:  mingw64-cross-gcc
 %endif
 %ifarch %ix86
-BuildRequires:  mingw32-cross-gcc
+#BuildRequires:  mingw32-cross-gcc
 %endif
 %endif
 BuildRequires:  pkgconfig(egl)
@@ -499,8 +499,8 @@ chmod 755 %winedir/my-find-requires.sh
 %if 0%{?suse_version} >= 1550
 %ifarch %{ix86} x86_64
 # only generated with mingw
-%dir %{_libdir}/wine/*-windows
-%{_libdir}/wine/*-windows/*.a
+#%%dir %{_libdir}/wine/*-windows
+#%{_libdir}/wine/*-windows/*.a
 %endif
 %endif
 %doc %{_mandir}/man1/winemaker.1*
