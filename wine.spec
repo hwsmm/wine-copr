@@ -18,7 +18,7 @@
 
 %define projectname wine
 %global flavor %nil
-%define staging 0
+%define staging 1
 %define nine 0
 
 %if "%flavor" == "staging" || "%flavor" == "staging-nine"
@@ -29,8 +29,8 @@
 %endif
 
 # needs to be on top due to usage of %version macro below
-%define realver 6.19
-Version:        6.19
+%define realver 6.20
+Version:        6.20
 Release:        1
 
 %if "%{flavor}" != ""
@@ -162,7 +162,7 @@ BuildRoot:      %{_tmppath}/wine-%{version}-build
 ExclusiveArch:  %{ix86} x86_64 ppc armv7l armv7hl aarch64
 %if %{staging}
 # upstream patch target version
-%define staging_version 6.19
+%define staging_version 6.20
 Source100:      wine-staging-%{staging_version}.tar.gz
 BuildRequires:  gtk3-devel
 BuildRequires:  libOSMesa-devel
@@ -180,7 +180,6 @@ Source110:      wine-d3d9-patches-%{nine_version}.tar.xz
 
 Patch998:       alsalatency.patch
 Patch999:       pulselatency.patch
-Patch1000:      0001-TkG-and-staging-patches-included.patch
 
 %description
 Wine is a compatibility layer capable of running Windows
