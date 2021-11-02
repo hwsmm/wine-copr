@@ -98,10 +98,14 @@ BuildRequires:  update-desktop-files
 BuildRequires:  valgrind-devel
 %if 0%{?suse_version} >= 1550
 %ifarch x86_64
-#BuildRequires:  mingw64-cross-gcc
+BuildRequires:  mingw64-cross-gcc
+BuildRequires:  mingw64-zlib-devel
+Requires:       mingw64-libz
 %endif
 %ifarch %ix86
-#BuildRequires:  mingw32-cross-gcc
+BuildRequires:  mingw32-cross-gcc
+BuildRequires:  mingw32-zlib-devel
+Requires:       mingw32-libz
 %endif
 %endif
 BuildRequires:  pkgconfig(egl)
@@ -143,7 +147,7 @@ Source7:        baselibs.conf
 Source8:        wine-rpmlintrc
 # SUSE specific patches
 # - currently none, but add them here
-#Patch0:         susefixes.patch
+Patch0:         wine-fix-faudio.patch
 #Recommends:     wine-gecko >= 2.47.2
 Conflicts:      wine-gecko < 2.47.2
 #Recommends:     wine-mono >= 6.1.1
