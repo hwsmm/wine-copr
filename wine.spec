@@ -260,7 +260,6 @@ export WIDL_TIME_OVERRIDE="0" 	# for reproducible builds.
 # e.g. Steam and other copy protections hate EBP being used for something else.
 export RPM_OPT_FLAGS=`echo $RPM_OPT_FLAGS|sed -e 's/-fomit-frame-pointer//'`
 %endif
-export RPM_OPT_FLAGS="$RPM_OPT_FLAGS -O3 -march=znver1"
 
 %ifarch aarch64
 # ARM64 now requires clang
@@ -269,7 +268,6 @@ export CC="/usr/bin/clang"
 %endif
 
 export CFLAGS="$RPM_OPT_FLAGS"
-export CROSSCFLAGS="$CROSSCFLAGS -O3"
 
 %if %{staging} || %{nine}
 autoreconf -i -f
