@@ -180,6 +180,9 @@ Source110:      wine-d3d9-patches-%{nine_version}.tar.xz
 
 Patch998:       alsalatency.patch
 Patch999:       pulselatency.patch
+Patch1000:      ps0198-p0001-winepulse.drv-Move-pulse_write-helper-around.patch
+Patch1001:      ps0198-p0002-winepulse.drv-Register-pulse_write-as-write-.patch
+Patch1002:      ps0198-p0003-winepulse.drv-Keep-buffer-size-separate-from.patch
 
 %description
 Wine is a compatibility layer capable of running Windows
