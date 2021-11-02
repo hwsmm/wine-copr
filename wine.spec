@@ -269,6 +269,7 @@ export CC="/usr/bin/clang"
 %endif
 
 export CFLAGS="$RPM_OPT_FLAGS"
+export CROSSCFLAGS="$CROSSCFLAGS -O3"
 
 %if %{staging} || %{nine}
 autoreconf -i -f
@@ -506,8 +507,8 @@ chmod 755 %winedir/my-find-requires.sh
 %if 0%{?suse_version} >= 1550
 %ifarch %{ix86} x86_64
 # only generated with mingw
-#%%dir %{_libdir}/wine/*-windows
-#%{_libdir}/wine/*-windows/*.a
+%dir %{_libdir}/wine/*-windows
+%{_libdir}/wine/*-windows/*.a
 %endif
 %endif
 %doc %{_mandir}/man1/winemaker.1*
