@@ -20,6 +20,7 @@
 %global flavor %nil
 %define staging 1
 %define nine 0
+%define mingw 0
 
 %if "%flavor" == "staging" || "%flavor" == "staging-nine"
 %define staging 1
@@ -29,8 +30,8 @@
 %endif
 
 # needs to be on top due to usage of %version macro below
-%define realver 6.20
-Version:        6.20
+%define realver 6.21
+Version:        6.21
 Release:        1
 
 %if "%{flavor}" != ""
@@ -96,6 +97,7 @@ BuildRequires:  pkgconfig
 BuildRequires:  sane-backends-devel
 BuildRequires:  update-desktop-files
 BuildRequires:  valgrind-devel
+%if %{mingw}
 %if 0%{?suse_version} >= 1550
 %ifarch x86_64
 BuildRequires:  mingw64-cross-gcc
@@ -106,6 +108,7 @@ Requires:       mingw64-libz
 BuildRequires:  mingw32-cross-gcc
 BuildRequires:  mingw32-zlib-devel
 Requires:       mingw32-libz
+%endif
 %endif
 %endif
 BuildRequires:  pkgconfig(egl)
@@ -166,7 +169,7 @@ BuildRoot:      %{_tmppath}/wine-%{version}-build
 ExclusiveArch:  %{ix86} x86_64 ppc armv7l armv7hl aarch64
 %if %{staging}
 # upstream patch target version
-%define staging_version 6.20
+%define staging_version 6.21
 Source100:      wine-staging-%{staging_version}.tar.gz
 BuildRequires:  gtk3-devel
 BuildRequires:  libOSMesa-devel
@@ -254,6 +257,8 @@ patch --no-backup-if-mismatch -p1 -i ./wine-d3d9-patches-%nine_version/wine-d3d9
 %build
 # currently not building with LTO
 %define _lto_cflags %{nil}
+export RPM_OPT_FLAGS="$RPM_OPT_FLAGS -O3 -march=znver1"
+
 cat VERSION
 export WIDL_TIME_OVERRIDE="0" 	# for reproducible builds.
 %ifarch %ix86
@@ -268,6 +273,7 @@ export CC="/usr/bin/clang"
 %endif
 
 export CFLAGS="$RPM_OPT_FLAGS"
+export CROSSCFLAGS="$CFLAGS"
 
 %if %{staging} || %{nine}
 autoreconf -i -f
@@ -502,11 +508,13 @@ chmod 755 %winedir/my-find-requires.sh
 %dir %{_libdir}/wine/*-unix
 %{_libdir}/wine/*-unix/*.a
 %{_libdir}/wine/*-unix/*.def
+%if %{mingw}
 %if 0%{?suse_version} >= 1550
 %ifarch %{ix86} x86_64
 # only generated with mingw
 %dir %{_libdir}/wine/*-windows
 %{_libdir}/wine/*-windows/*.a
+%endif
 %endif
 %endif
 %doc %{_mandir}/man1/winemaker.1*
