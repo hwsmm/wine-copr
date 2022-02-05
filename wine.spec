@@ -1,7 +1,7 @@
 #
 # spec file
 #
-# Copyright (c) 2021 SUSE LLC
+# Copyright (c) 2022 SUSE LLC
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,10 +17,9 @@
 
 
 %define projectname wine
-%global flavor %nil
-%define staging 1
+%global flavor @BUILD_FLAVOR@%nil
+%define staging 0
 %define nine 0
-%define mingw 0
 
 %if "%flavor" == "staging" || "%flavor" == "staging-nine"
 %define staging 1
@@ -30,19 +29,15 @@
 %endif
 
 # needs to be on top due to usage of %version macro below
-%define realver 6.21
-Version:        6.21
-Release:        1
+%define realver 7.1
+Version:        7.1
+Release:        0
 
 %if "%{flavor}" != ""
 Name:           wine%{?flavor:-}%{?flavor}
 Provides:       wine = %{version}-%{release}
 %else
-%ifarch x86_64
 Name:           wine
-%else
-Name:           wine-32bit
-%endif
 %endif
 Conflicts:      otherproviders(wine)
 BuildRequires:  alsa-devel
@@ -97,7 +92,6 @@ BuildRequires:  pkgconfig
 BuildRequires:  sane-backends-devel
 BuildRequires:  update-desktop-files
 BuildRequires:  valgrind-devel
-%if %{mingw}
 %if 0%{?suse_version} >= 1550
 %ifarch x86_64
 BuildRequires:  mingw64-cross-gcc
@@ -108,7 +102,6 @@ Requires:       mingw64-libz
 BuildRequires:  mingw32-cross-gcc
 BuildRequires:  mingw32-zlib-devel
 Requires:       mingw32-libz
-%endif
 %endif
 %endif
 BuildRequires:  pkgconfig(egl)
@@ -138,9 +131,9 @@ Summary:        An MS Windows Emulator
 License:        LGPL-2.1-or-later
 Group:          System/Emulators/PC
 URL:            http://www.winehq.org/
-Source0:        https://dl.winehq.org/wine/source/6.x/%{projectname}-%{realver}.tar.xz
+Source0:        https://dl.winehq.org/wine/source/7.x/%{projectname}-%{realver}.tar.xz
 Source41:       wine.keyring
-Source42:       https://dl.winehq.org/wine/source/6.x/%{projectname}-%{realver}.tar.xz.sign
+Source42:       https://dl.winehq.org/wine/source/7.x/%{projectname}-%{realver}.tar.xz.sign
 Source2:        http://kegel.com/wine/wisotool
 Source3:        README.SUSE
 Source4:        wine.desktop
@@ -150,27 +143,26 @@ Source7:        baselibs.conf
 Source8:        wine-rpmlintrc
 # SUSE specific patches
 # - currently none, but add them here
-#Patch0:         wine-fix-faudio.patch
-#Recommends:     wine-gecko >= 2.47.2
+Recommends:     wine-gecko >= 2.47.2
 Conflicts:      wine-gecko < 2.47.2
-#Recommends:     wine-mono >= 6.1.1
+Recommends:     wine-mono >= 6.1.1
 Conflicts:      wine-mono < 6.1.1
 # not packaged in distro...
-#Recommends:     wine-mono
-#Recommends:     alsa-plugins
-#Recommends:     alsa-plugins-pulse
-#Recommends:     dosbox
-#Recommends:     winetricks
+Recommends:     wine-mono
+Recommends:     alsa-plugins
+Recommends:     alsa-plugins-pulse
+Recommends:     dosbox
+Recommends:     winetricks
 Requires:       samba-winbind
 %ifarch x86_64
-Requires:       wine-32bit = %{version}
+Requires:       %{name}-32bit = %{version}
 %endif
-BuildRoot:      %{_tmppath}/wine-%{version}-build
+BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 ExclusiveArch:  %{ix86} x86_64 ppc armv7l armv7hl aarch64
 %if %{staging}
 # upstream patch target version
-%define staging_version 6.21
-Source100:      wine-staging-%{staging_version}.tar.gz
+%define staging_version 7.1
+Source100:      wine-staging-%{staging_version}.tar.xz
 BuildRequires:  gtk3-devel
 BuildRequires:  libOSMesa-devel
 BuildRequires:  libva-devel
@@ -184,9 +176,6 @@ BuildRequires:  libOSMesa-devel
 BuildRequires:  pkgconfig(dri2proto)
 Source110:      wine-d3d9-patches-%{nine_version}.tar.xz
 %endif
-
-Patch998:       alsalatency.patch
-Patch999:       pulselatency.patch
 
 %description
 Wine is a compatibility layer capable of running Windows
@@ -236,9 +225,8 @@ cp %{S:3} .
 #
 %if %{staging}
 # apply wine staging patch set on top of the wine release.
-tar xzf %{SOURCE100}
-bash ./wine-staging-%staging_version/patches/patchinstall.sh \
-     user32-rawinput-mouse user32-rawinput-mouse-experimental server-Realtime_Priority ntdll-Junction_Points server-PeekMessage server-Signal_Thread server-Realtime_Priority eventfd_synchronization
+tar xf %{SOURCE100}
+bash ./wine-staging-%staging_version/patches/patchinstall.sh --all
 %endif
 
 %if %{nine}
@@ -254,8 +242,6 @@ patch --no-backup-if-mismatch -p1 -i ./wine-d3d9-patches-%nine_version/wine-d3d9
 %build
 # currently not building with LTO
 %define _lto_cflags %{nil}
-export RPM_OPT_FLAGS="$RPM_OPT_FLAGS -O3 -march=znver1"
-
 cat VERSION
 export WIDL_TIME_OVERRIDE="0" 	# for reproducible builds.
 %ifarch %ix86
@@ -269,15 +255,13 @@ export RPM_OPT_FLAGS=`echo $RPM_OPT_FLAGS|sed -e 's/-fomit-frame-pointer//'`
 export CC="/usr/bin/clang"
 %endif
 
-export CFLAGS="$RPM_OPT_FLAGS"
-export CROSSCFLAGS="$CFLAGS"
-
 %if %{staging} || %{nine}
 autoreconf -i -f
 %endif
 # keep just for susepatches with configure changes
 #autoconf
 #autoheader -I include
+CFLAGS="$RPM_OPT_FLAGS" \
 %configure \
 	--with-x \
 %ifarch %{arm}
@@ -356,6 +340,11 @@ mv %{buildroot}/%{_mandir}/de.UTF-8 %{buildroot}/%{_mandir}/de
 mv %{buildroot}/%{_mandir}/fr.UTF-8 %{buildroot}/%{_mandir}/fr
 %ifnarch x86_64 aarch64
 mv %{buildroot}/%{_mandir}/pl.UTF-8 %{buildroot}/%{_mandir}/pl
+%endif
+
+%ifarch %ix86 x86_64
+# Use plain strip, which unlike the MinGW variant preserves the wine builtin marker
+find %{buildroot}/usr/lib*/wine/*-windows/ -type f -exec strip --strip-debug {} +
 %endif
 
 tar -xjf %{SOURCE5}
@@ -504,14 +493,11 @@ chmod 755 %winedir/my-find-requires.sh
 %{_bindir}/wrc
 %dir %{_libdir}/wine/*-unix
 %{_libdir}/wine/*-unix/*.a
-%{_libdir}/wine/*-unix/*.def
-%if %{mingw}
 %if 0%{?suse_version} >= 1550
 %ifarch %{ix86} x86_64
 # only generated with mingw
 %dir %{_libdir}/wine/*-windows
 %{_libdir}/wine/*-windows/*.a
-%endif
 %endif
 %endif
 %doc %{_mandir}/man1/winemaker.1*

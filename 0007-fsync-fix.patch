@@ -1,0 +1,20 @@
+diff --git a/dlls/ntdll/unix/fsync.c b/dlls/ntdll/unix/fsync.c
+index 39d969f..64a32c1 100644
+--- a/dlls/ntdll/unix/fsync.c
++++ b/dlls/ntdll/unix/fsync.c
+@@ -66,6 +66,7 @@ WINE_DEFAULT_DEBUG_CHANNEL(fsync);
+ #ifndef __NR_futex_waitv
+ 
+ # define __NR_futex_waitv 449
++#endif
+ # define FUTEX_32 2
+ struct futex_waitv {
+     uint64_t   val;
+@@ -74,7 +75,6 @@ struct futex_waitv {
+     uint32_t __reserved;
+ };
+ 
+-#endif
+ 
+ #define u64_to_ptr(x) (void *)(uintptr_t)(x)
+ 

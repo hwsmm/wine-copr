@@ -1,4 +1,154 @@
 -------------------------------------------------------------------
+Sun Jan 30 11:14:11 UTC 2022 - Marcus Meissner <meissner@suse.com>
+
+- updated to 7.1 development release
+  - Vulkan 1.3 support.
+  - A number of theming fixes.
+  - WebSocket improvements.
+  - Improved cursor clipping on macOS.
+  - IDL compiler fixes for C++.
+  - Various bug fixes.
+- update staging to 7.1 release
+
+-------------------------------------------------------------------
+Wed Jan 19 08:38:20 UTC 2022 - Marcus Meissner <meissner@suse.com>
+
+- Updated to 7.0 release
+  This release represents a year of development effort and over 9,100
+  individual changes. It contains a large number of improvements that
+  are listed in the release notes below. The areas of major changes are:
+
+  - Most modules converted to PE format.
+  - Better theming support, with a bundled theme for a more modern look.
+  - Vastly improved HID stack and joystick support.
+  - New WoW64 architecture.
+
+-------------------------------------------------------------------
+Sat Jan 15 15:28:34 UTC 2022 - Marcus Meissner <meissner@suse.com>
+
+- updated to 7.0-rc6 release candidate
+  - Bug fixes only, we are in code freeze.
+- update staging to 7.0-rc6 release
+
+-------------------------------------------------------------------
+Sat Jan  8 08:37:14 UTC 2022 - Marcus Meissner <meissner@suse.com>
+
+- updated to 7.0-rc5 release candidate
+  - Bug fixes only, we are in code freeze.
+- update staging to 7.0-rc5 release
+
+-------------------------------------------------------------------
+Mon Jan  3 22:28:51 UTC 2022 - Fabian Vogt <fabian@ritter-vogt.de>
+
+- Use plain strip instead of MinGW strip to preserve the important
+  builtin dll marker
+
+-------------------------------------------------------------------
+Mon Jan  3 09:20:56 UTC 2022 - Marcus Meissner <meissner@suse.com>
+
+- updated to 7.0-rc4 release candidate
+  - Bug fixes only, we are in code freeze.
+- update staging to 7.0-rc4 release
+
+-------------------------------------------------------------------
+Wed Dec 29 15:00:09 UTC 2021 - Marcus Meissner <meissner@suse.com>
+
+- strip the debuginfo out of the PE binaries for now, saves 2/3 space.
+  bsc#1192292
+
+-------------------------------------------------------------------
+Mon Dec 27 08:14:52 UTC 2021 - Marcus Meissner <meissner@suse.com>
+
+- updated to 7.0-rc3 release candidate
+  - Bug fixes only, we are in code freeze.
+- update staging to 7.0-rc3 release
+
+-------------------------------------------------------------------
+Sat Dec 18 09:17:39 UTC 2021 - Marcus Meissner <meissner@suse.com>
+
+- updated to 7.0-rc2 release candidate
+  - Bug fixes only, we are in code freeze.
+- update staging to 7.0-rc2 release
+
+-------------------------------------------------------------------
+Sat Dec 11 18:36:04 UTC 2021 - Marcus Meissner <meissner@suse.com>
+
+- updated to 7.0-rc1 release candidate
+  - Reimplementation of the WinMM joystick driver.
+  - All Unix libraries converted to the syscall-based interface.
+  - Various bug fixes.
+- update staging to 7.0-rc1 release
+
+-------------------------------------------------------------------
+Sun Dec  5 13:30:20 UTC 2021 - Marcus Meissner <meissner@suse.com>
+
+- updated to 6.23 development release
+  - Mount manager and CoreAudio driver converted to PE.
+  - Support for exception handling in Wow64 mode.
+  - Optional support for using the distribution's PE libraries.
+  - A number of UI improvements in WineDbg.
+  - Various bug fixes.
+- update staging to 6.23 release
+
+-------------------------------------------------------------------
+Sat Nov 20 10:27:44 UTC 2021 - Marcus Meissner <meissner@suse.com>
+
+- updated to 6.22 development release
+  - Mono engine updated to version 7.0.0.
+  - Exception unwinding on ARM.
+  - More improvements to HID joystick support.
+  - WoW64 thunks in a number of Unix libraries.
+  - Beginnings of moving USER32 to Win32u.
+  - Various bug fixes.
+- update staging to 6.22 release
+
+-------------------------------------------------------------------
+Sun Nov  7 12:43:50 UTC 2021 - Marcus Meissner <meissner@suse.com>
+
+- updated to 6.21 development release
+  - WinSpool, GPhoto, and a few other modules converted to PE.
+  - Better support for inline functions in DbgHelp.
+  - Beginnings of a MSDASQL implementation.
+  - Various bug fixes.
+- update staging to 6.21 release
+- wine-fix-faudio.patch: removed, fixed upstream 
+
+-------------------------------------------------------------------
+Sat Oct 23 08:22:24 UTC 2021 - Marcus Meissner <meissner@suse.com>
+
+- updated to 6.20 development release
+  - MSXml, XAudio, DInput and a few other modules converted to PE.
+  - A few system libraries are bundled with the source to support PE builds.
+  - HID joystick is now the only supported joystick backend in DirectInput.
+  - Better support for MSVCRT builds in Winelib.
+  - Various bug fixes.
+- update staging to 6.20 release
+- wine-fix-faudio.patch: fix build
+
+-------------------------------------------------------------------
+Sat Oct  9 07:57:53 UTC 2021 - Marcus Meissner <meissner@suse.com>
+
+- updated to 6.19 development release
+  - IPHlpApi, NsiProxy, WineDbg and a few other modules converted to PE.
+  - More HID joystick work.
+  - Kernel parts of GDI moved to Win32u.
+  - More work towards Dwarf 3/4 debug support.
+  - Various bug fixes.
+- update staging to 6.19 release
+
+-------------------------------------------------------------------
+Sat Sep 25 10:02:13 UTC 2021 - Marcus Meissner <meissner@suse.com>
+
+- updated to 6.18 development release
+  - Shell32 and WineBus libraries converted to PE.
+  - Unicode data updated to Unicode version 14.
+  - Mono engine updated to version 6.4.0, with COM improvements.
+  - More work towards Dwarf 3/4 debug support.
+  - HID joystick enabled by default.
+  - Various bug fixes.
+- update staging to 6.18 release
+
+-------------------------------------------------------------------
 Sat Sep 11 13:26:35 UTC 2021 - Marcus Meissner <meissner@suse.com>
 
 - updated to 6.17 development release
