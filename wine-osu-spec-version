@@ -1,4 +1,0 @@
-%define realver 7.1
-
-Source777: debian.series
-%{expand:%(COUNT=100; for patch in $(cat debian.series); do let COUNT++; echo "Patch${COUNT}: $patch"; done)}
