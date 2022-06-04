@@ -33,6 +33,10 @@
 Version:        7.10
 Release:        0
 
+BuildRequires:  pkgconfig(wayland-client)
+BuildRequires:  pkgconfig(wayland-protocols)
+BuildRequires:  pkgconfig(xkbcommon)
+
 %if "%{flavor}" != ""
 Name:           wine%{?flavor:-}%{?flavor}
 Provides:       wine = %{version}-%{release}
@@ -278,6 +282,7 @@ CFLAGS="$RPM_OPT_FLAGS" \
 %if %{nine}
     --with-d3d9-nine \
 %endif
+    --with-wayland \
 	--verbose
 
 grep "have_x=yes" config.log || exit 1
