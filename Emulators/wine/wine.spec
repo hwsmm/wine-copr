@@ -31,7 +31,7 @@
 # needs to be on top due to usage of %version macro below
 %define realver 7.10
 Version:        7.10
-Release:        0
+Release:        1
 
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-protocols)
