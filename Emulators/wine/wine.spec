@@ -29,13 +29,9 @@
 %endif
 
 # needs to be on top due to usage of %version macro below
-%define realver 7.10
-Version:        7.10
-Release:        1
-
-BuildRequires:  pkgconfig(wayland-client)
-BuildRequires:  pkgconfig(wayland-protocols)
-BuildRequires:  pkgconfig(xkbcommon)
+%define realver 7.11
+Version:        7.11
+Release:        0
 
 %if "%{flavor}" != ""
 Name:           wine%{?flavor:-}%{?flavor}
@@ -47,6 +43,9 @@ Conflicts:      otherproviders(wine)
 BuildRequires:  alsa-devel
 BuildRequires:  autoconf
 BuildRequires:  bison
+BuildRequires:  pkgconfig(wayland-client)
+BuildRequires:  pkgconfig(wayland-protocols)
+BuildRequires:  pkgconfig(xkbcommon)
 %ifarch aarch64
 BuildRequires:  clang >= 5
 BuildRequires:  lld
@@ -169,7 +168,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 ExclusiveArch:  %{ix86} x86_64 ppc armv7l armv7hl aarch64
 %if %{staging}
 # upstream patch target version
-%define staging_version 7.9
+%define staging_version 7.11
 Source100:      wine-staging-%{staging_version}.tar.xz
 BuildRequires:  gtk3-devel
 BuildRequires:  libOSMesa-devel
